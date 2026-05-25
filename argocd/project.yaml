@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: taskflow
+  namespace: argocd
+spec:
+  description: Taskflow application project
+  sourceRepos:
+    - https://github.com/OnyiGlobal2025/taskflow-gitops
+  destinations:
+    - namespace: taskflow-dev
+      server: https://kubernetes.default.svc
+    - namespace: taskflow-staging
+      server: https://kubernetes.default.svc
+    - namespace: taskflow-prod
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

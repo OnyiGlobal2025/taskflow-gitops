@@ -18,13 +18,16 @@ spec:
       name: taskflow-{{env}}
     spec:
       project: taskflow
-      source:
-        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
-        targetRevision: main
-        path: charts/taskflow
-        helm:
-          valueFiles:
-            - ../../envs/{{env}}/values.yaml
+      sources:
+        - repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+          targetRevision: main
+          ref: values
+        - repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+          targetRevision: main
+          path: charts/taskflow
+          helm:
+            valueFiles:
+              - $values/envs/{{env}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{namespace}}'
