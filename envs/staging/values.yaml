@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  tag: "staging-latest"
+  tag: "backend-latest"
 
 namespace: taskflow-staging
 environment: staging
