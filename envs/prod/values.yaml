@@ -1,7 +1,7 @@
 replicaCount: 3
 
 image:
-  tag: "prod-latest"
+  tag: "638f1324bd13543f4d80fd60e3f5ea4afb7fd15f"
 
 namespace: taskflow-prod
 environment: prod
