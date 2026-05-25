@@ -8,7 +8,7 @@ environment: staging
 
 ingress:
   enabled: true
-  host: staging.taskflow.onyiglobal.com
+  host: staging.taskflow.okorojeremiah.online
 
 resources:
   requests:
