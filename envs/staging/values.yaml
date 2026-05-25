@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  tag: "a6c6c62c34fb0165d68665c3bc577339fb28318c"
+  tag: "638f1324bd13543f4d80fd60e3f5ea4afb7fd15f"
 
 namespace: taskflow-staging
 environment: staging
