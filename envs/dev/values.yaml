@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  tag: "backend-latest"
+  tag: "08171748865bd3e96ebc140f0d6e084314777fbe"
 
 namespace: taskflow-dev
 environment: dev
