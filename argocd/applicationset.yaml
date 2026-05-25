@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: taskflow
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: taskflow-dev
+          - env: staging
+            namespace: taskflow-staging
+          - env: prod
+            namespace: taskflow-prod
+  template:
+    metadata:
+      name: taskflow-{{env}}
+    spec:
+      project: taskflow
+      source:
+        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+        targetRevision: main
+        path: charts/taskflow
+        helm:
+          valueFiles:
+            - ../../envs/{{env}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false
+        retry:
+          limit: 3
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m

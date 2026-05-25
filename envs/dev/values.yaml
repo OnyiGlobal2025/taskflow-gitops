@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  tag: "dev-latest"
+
+namespace: taskflow-dev
+environment: dev
+
+ingress:
+  enabled: true
+  host: dev.taskflow.okorojeremiah.online
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false

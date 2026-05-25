@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  tag: "staging-latest"
+
+namespace: taskflow-staging
+environment: staging
+
+ingress:
+  enabled: true
+  host: staging.taskflow.onyiglobal.com
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 70

@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: healthcheck-{{ .Release.Revision }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: healthcheck
+          image: curlimages/curl:latest
+          command:
+            - sh
+            - -c
+            - |
+              for i in $(seq 1 10); do
+                STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+                  http://taskflow-backend.{{ .Values.namespace }}.svc/health)
+                if [ "$STATUS" = "200" ]; then
+                  echo "Health check passed"
+                  exit 0
+                fi
+                echo "Attempt $i failed (status $STATUS), retrying..."
+                sleep 10
+              done
+              echo "Health check failed after 10 attempts"
+              exit 1
