@@ -1,7 +1,7 @@
 replicaCount: 3
 
 image:
-  tag: "backend-latest"
+  tag: latest
 
 namespace: taskflow-prod
 environment: prod
