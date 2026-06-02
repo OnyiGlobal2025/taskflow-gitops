@@ -1,7 +1,11 @@
 replicaCount: 3
 
 image:
+<<<<<<< HEAD
   tag: latest
+=======
+  tag: "backend-0408835d7056dfc2502572785a555d26cece84a2"
+>>>>>>> cdda7c34026197b437c9b7650b91fc5fe595aaa9
 
 namespace: taskflow-prod
 environment: prod
