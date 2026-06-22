@@ -1,6 +1,7 @@
 replicaCount: 3
 
 image:
+  repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
   tag: "backend-a754f47fa272ec289cf99abbf9c3bd3112b23267"
 
 namespace: taskflow-prod
