@@ -1,0 +1,248 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2026-06-22T10:25:42Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2026-06-22T13:28:24Z"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  generation: 114
+  name: taskflow-dev
+  namespace: argocd
+  ownerReferences:
+  - apiVersion: argoproj.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ApplicationSet
+    name: taskflow
+    uid: 6ac2701b-090e-478d-a3bf-401c77a4fbc9
+  resourceVersion: "55437"
+  uid: e3672fa8-4d12-4cd6-a45a-b3d0f36d89ff
+operation:
+  initiatedBy:
+    automated: true
+  retry:
+    backoff:
+      duration: 10s
+      factor: 2
+      maxDuration: 3m
+    limit: 3
+  sync:
+    prune: true
+    revisions:
+    - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+    - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+    sources:
+    - ref: values
+      repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+      targetRevision: main
+    - helm:
+        valueFiles:
+        - $values/envs/dev/values.yaml
+      path: charts/taskflow
+      repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+      targetRevision: main
+    syncOptions:
+    - CreateNamespace=true
+spec:
+  destination:
+    namespace: taskflow-dev
+    server: https://kubernetes.default.svc
+  project: taskflow
+  sources:
+  - ref: values
+    repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+    targetRevision: main
+  - helm:
+      valueFiles:
+      - $values/envs/dev/values.yaml
+    path: charts/taskflow
+    repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
+      limit: 3
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-06-22T13:54:53Z"
+    status: Degraded
+  operationState:
+    message: waiting for healthy state of networking.k8s.io/Ingress/taskflow-ingress
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        backoff:
+          duration: 10s
+          factor: 2
+          maxDuration: 3m
+        limit: 3
+      sync:
+        prune: true
+        revisions:
+        - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+        - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+        sources:
+        - ref: values
+          repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+          targetRevision: main
+        - helm:
+            valueFiles:
+            - $values/envs/dev/values.yaml
+          path: charts/taskflow
+          repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+          targetRevision: main
+        syncOptions:
+        - CreateNamespace=true
+    phase: Running
+    retryCount: 1
+    startedAt: "2026-06-22T11:11:19Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Namespace
+        message: namespace/taskflow-dev created
+        name: taskflow-dev
+        namespace: ""
+        status: Synced
+        syncPhase: PreSync
+        version: v1
+      - group: ""
+        hookPhase: Succeeded
+        kind: Service
+        message: service/taskflow-frontend created
+        name: taskflow-frontend
+        namespace: taskflow-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Succeeded
+        kind: Service
+        message: service/taskflow-backend created
+        name: taskflow-backend
+        namespace: taskflow-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Failed
+        images:
+        - 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow/frontend-latest
+        kind: Deployment
+        message: Deployment "taskflow-frontend" exceeded its progress deadline
+        name: taskflow-frontend
+        namespace: taskflow-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Failed
+        images:
+        - 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow/backend-latest
+        kind: Deployment
+        message: Deployment "taskflow-backend" exceeded its progress deadline
+        name: taskflow-backend
+        namespace: taskflow-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: networking.k8s.io
+        hookPhase: Running
+        kind: Ingress
+        message: ingress.networking.k8s.io/taskflow-ingress created
+        name: taskflow-ingress
+        namespace: taskflow-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: ""
+      revisions:
+      - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+      - cb6e13bcb7ef9f1193ce8a0cd11c1202d3c1a645
+      source:
+        repoURL: ""
+      sources:
+      - ref: values
+        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+        targetRevision: main
+      - helm:
+          valueFiles:
+          - $values/envs/dev/values.yaml
+        path: charts/taskflow
+        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+        targetRevision: main
+  reconciledAt: "2026-06-22T13:55:43Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: Service
+    name: taskflow-backend
+    namespace: taskflow-dev
+    status: Synced
+    version: v1
+  - kind: Service
+    name: taskflow-frontend
+    namespace: taskflow-dev
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: taskflow-backend
+    namespace: taskflow-dev
+    status: OutOfSync
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: taskflow-frontend
+    namespace: taskflow-dev
+    status: OutOfSync
+    version: v1
+  - group: networking.k8s.io
+    kind: Ingress
+    name: taskflow-ingress
+    namespace: taskflow-dev
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceTypes:
+  - ""
+  - Helm
+  summary:
+    externalURLs:
+    - http://dev.taskflow.okorojeremiah.online/
+    - http://dev.taskflow.okorojeremiah.online/api
+    images:
+    - 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow/backend-latest
+    - 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow/frontend-latest
+  sync:
+    comparedTo:
+      destination:
+        namespace: taskflow-dev
+        server: https://kubernetes.default.svc
+      source:
+        repoURL: ""
+      sources:
+      - ref: values
+        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+        targetRevision: main
+      - helm:
+          valueFiles:
+          - $values/envs/dev/values.yaml
+        path: charts/taskflow
+        repoURL: https://github.com/OnyiGlobal2025/taskflow-gitops
+        targetRevision: main
+    revisions:
+    - 59216fd69d453817297d7f185604d58ac47afa59
+    - 59216fd69d453817297d7f185604d58ac47afa59
+    status: OutOfSync
