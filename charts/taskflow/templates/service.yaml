@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: taskflow-backend
   namespace: {{ .Values.namespace }}
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/success-codes: "200"
 spec:
   selector:
     app: taskflow-backend
