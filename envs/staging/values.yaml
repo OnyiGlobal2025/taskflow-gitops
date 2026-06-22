@@ -3,12 +3,12 @@ replicaCount: 1
 backend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: backend-latest
+    tag: "backend-d744ed586d31a9aee5c90ce9f7f984b116493cd0"
 
 frontend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: frontend-latest
+    tag: "backend-d744ed586d31a9aee5c90ce9f7f984b116493cd0"
 
 namespace: taskflow-staging
 environment: staging
