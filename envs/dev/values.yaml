@@ -15,7 +15,7 @@ environment: dev
 
 ingress:
   enabled: true
-  host: dev.taskflow.okorojeremiah.online
+  host: dev-taskflow.okorojeremiah.online
 
 resources:
   requests:

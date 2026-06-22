@@ -15,7 +15,7 @@ environment: staging
 
 ingress:
   enabled: true
-  host: staging.taskflow.okorojeremiah.online
+  host: staging-taskflow.okorojeremiah.online
 
 resources:
   requests:
