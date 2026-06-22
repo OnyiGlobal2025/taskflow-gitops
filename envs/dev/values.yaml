@@ -3,12 +3,12 @@ replicaCount: 1
 backend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: backend-latest
+    tag: "backend-1dedae99d7a34775e2585661d7cbcbd4eebcbc46"
 
 frontend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: frontend-latest
+    tag: "backend-1dedae99d7a34775e2585661d7cbcbd4eebcbc46"
 
 namespace: taskflow-dev
 environment: dev
