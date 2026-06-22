@@ -8,7 +8,7 @@ backend:
 frontend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: frontend-latestS
+    tag: frontend-latest
 
 namespace: taskflow-staging
 environment: staging
