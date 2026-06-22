@@ -8,11 +8,7 @@ backend:
 frontend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-<<<<<<< HEAD
-    tag: "backend-afad370cb431b3ee5ff50d147ca3aa32edc809b4"
-=======
     tag: frontend-doesnotexist
->>>>>>> 669a5b2 (test: deliberately break dev frontend to test rollback)
 
 namespace: taskflow-dev
 environment: dev
