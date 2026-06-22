@@ -1,8 +1,14 @@
-replicaCount: 2
+replicaCount: 1
 
-image:
-  repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-  tag: "backend-a754f47fa272ec289cf99abbf9c3bd3112b23267"
+backend:
+  image:
+    repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
+    tag: backend-latest
+
+frontend:
+  image:
+    repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
+    tag: frontend-latest
 
 namespace: taskflow-staging
 environment: staging
@@ -13,14 +19,11 @@ ingress:
 
 resources:
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 64Mi
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 200m
+    memory: 256Mi
 
 autoscaling:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 4
-  targetCPUUtilizationPercentage: 70
+  enabled: false
