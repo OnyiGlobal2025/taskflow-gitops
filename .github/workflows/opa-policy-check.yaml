@@ -1,0 +1,40 @@
+name: OPA Policy Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  policy-check:
+    name: Validate manifests against OPA policies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Install conftest
+        run: |
+          wget -q https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz
+          tar xzf conftest_0.56.0_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin/
+          conftest --version
+
+      - name: Render and test dev manifests
+        run: |
+          helm template taskflow charts/taskflow -f envs/dev/values.yaml > /tmp/dev.yaml
+          conftest test /tmp/dev.yaml --policy policies/opa
+
+      - name: Render and test staging manifests
+        run: |
+          helm template taskflow charts/taskflow -f envs/staging/values.yaml > /tmp/staging.yaml
+          conftest test /tmp/staging.yaml --policy policies/opa
+
+      - name: Render and test prod manifests
+        run: |
+          helm template taskflow charts/taskflow -f envs/prod/values.yaml > /tmp/prod.yaml
+          conftest test /tmp/prod.yaml --policy policies/opa
