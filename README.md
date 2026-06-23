@@ -47,6 +47,8 @@ Capabilities delivered:
 
 ## Architecture
 
+![ArgoCD showing dev, staging, and prod all Synced and Healthy](docs/images/argocd-all-healthy.png)
+
 The platform spans two repositories and a GitOps control loop:
 
 ```
@@ -141,6 +143,8 @@ Triggered on push. Stages:
 
 ### CD (taskflow-app `cd.yaml`)
 
+![CD pipeline promoting through dev, staging, approval, and production](docs/images/cd-promotion-flow.png)
+
 Triggered when CI completes successfully. Flow:
 
 ```
@@ -151,6 +155,7 @@ promote-dev → (health check + rollback) → promote-staging → approve-prod �
 2. **Deploy to staging** — promotes the same build to staging, posts a Slack notification.
 3. **Await production approval** — gated by a GitHub Environment (`production`) with required reviewers; posts a Slack "approval needed" message with a link.
 4. **Deploy to production** — promotes to prod after approval, posts a Slack confirmation.
+
 
 ### Policy gate (taskflow-gitops `opa-policy-check.yaml`)
 
@@ -175,6 +180,10 @@ Triggered on push/PR. Renders the Helm chart for each environment and runs conft
 | DAST (OWASP ZAP) | 🔶 Deferred | `.zap` config present; pipeline integration pending a healthy dev target |
 
 ### Policy-as-code detail
+
+![OPA policy gate passing across all environments](docs/images/opa-gate-passing.png)
+
+![OPA policy gate blocking non-compliant manifests](docs/images/opa-gate-failing.png)
 
 Three policies enforce real production standards on every rendered manifest:
 
@@ -260,6 +269,9 @@ A record of issues encountered during a full rebuild and how they were resolved.
 **CD promotion bug (root cause of the 502 saga).** The CD `sed` matched every `tag:` line and hardcoded a `backend-` prefix, so it overwrote the **frontend** tag with a **backend** image — the frontend pod was running the backend. Fixed by matching backend and frontend tag lines independently and promoting each component's own image.
 
 **aws-auth + IAM for pipeline rollback.** Enabling the CD health check required two separate authorizations: mapping `taskflow-github-actions-role` into the cluster's `aws-auth` configmap (Kubernetes API access), and granting `eks:DescribeCluster` on the IAM role (for `aws eks update-kubeconfig`). Both were added.
+
+
+![ArgoCD detecting a broken image: failed pod isolated, previous version keeps serving](docs/images/rollback-failure-detection.png)
 
 > **Permanence note:** several fixes were applied live (IAM inline policies, `aws-auth` mapping). Because this environment is torn down and re-applied, these must also live in Terraform so they survive teardown. The ALB ACM permission is already captured in `iam-alb-policy.json`; the ExternalDNS role, the CD role's `aws-auth` mapping, and `eks:DescribeCluster` should be mirrored into Terraform.
 
