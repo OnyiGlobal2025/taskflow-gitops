@@ -1,5 +1,13 @@
 # TaskFlow — Multi-Environment CI/CD Platform with Promotion Gates
 
+![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?logo=terraform&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-EKS-326CE5?logo=kubernetes&logoColor=white)
+![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?logo=argo&logoColor=white)
+![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?logo=helm&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)
+![OPA](https://img.shields.io/badge/Policy-OPA%2FConftest-7D9199?logo=openpolicyagent&logoColor=white)
+![AWS](https://img.shields.io/badge/Cloud-AWS-232F3E?logo=amazonwebservices&logoColor=white)
+
 A production-style GitOps delivery platform that extends the TaskFlow application to deploy across **dev → staging → prod** on AWS EKS, with environment-specific configuration, manual approval gates, automated rollback on failed health checks, policy-as-code enforcement, and per-stage Slack notifications.
 
 This project focuses on the **software delivery lifecycle** — the part of platform engineering most teams care about day to day: promoting a build safely through environments, catching bad changes before they reach production, and recovering automatically when something goes wrong.
