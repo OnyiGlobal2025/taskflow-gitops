@@ -184,7 +184,7 @@ Triggered on push/PR. Renders the Helm chart for each environment and runs conft
 ![OPA policy gate passing across all environments](docs/images/opa-gate-passing.png)
 
 ![OPA policy gate blocking non-compliant manifests](docs/images/opa-gate-failing.png)
-
+*Policy-as-code in action: the OPA gate rejecting a manifest that violated policy (missing resource limits) before it could reach the cluster — non-compliant configuration is blocked in CI, not discovered in production.*
 Three policies enforce real production standards on every rendered manifest:
 
 - **resource-limits** — every container must declare CPU and memory limits.
@@ -272,6 +272,7 @@ A record of issues encountered during a full rebuild and how they were resolved.
 
 
 ![ArgoCD detecting a broken image: failed pod isolated, previous version keeps serving](docs/images/rollback-failure-detection.png)
+*Rollback validation: a deliberately broken image was deployed. ArgoCD detected the failure, the bad pod never served traffic, and the previous healthy version stayed live — the deployment was caught and contained automatically.*
 
 > **Permanence note:** several fixes were applied live (IAM inline policies, `aws-auth` mapping). Because this environment is torn down and re-applied, these must also live in Terraform so they survive teardown. The ALB ACM permission is already captured in `iam-alb-policy.json`; the ExternalDNS role, the CD role's `aws-auth` mapping, and `eks:DescribeCluster` should be mirrored into Terraform.
 
