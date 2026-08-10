@@ -1,0 +1,19 @@
+site_name: TaskFlow GitOps
+site_description: GitOps source of truth for the TaskFlow platform — ArgoCD, Helm, multi-environment
+
+repo_url: https://github.com/OnyiGlobal2025/taskflow-gitops
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+
+plugins:
+  - techdocs-core
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

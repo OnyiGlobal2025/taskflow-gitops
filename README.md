@@ -299,3 +299,14 @@ A record of issues encountered during a full rebuild and how they were resolved.
 ---
 
 *Built by Onyedika Okoro — Cloud/DevOps Engineer. Part of a portfolio series on production-grade platform engineering.*
+
+
+---
+
+## Internal Developer Portal (Backstage / TechDocs)
+
+Beyond its Project 1 role, this repo is registered in the TaskFlow Backstage portal as the platform's delivery layer. Its documentation is published to TechDocs; source lives in [`docs/`](./docs), with the ApplicationSet and promotion design in [`docs/architecture.md`](./docs/architecture.md).
+
+- AWS account: `713923090919`
+- Region: `us-east-1`
+- Default branch: `main`
