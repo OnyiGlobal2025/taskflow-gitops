@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: taskflow-gitops
+  description: GitOps source of truth for TaskFlow — ArgoCD ApplicationSet, Helm, and multi-environment delivery.
+  annotations:
+    github.com/project-slug: OnyiGlobal2025/taskflow-gitops
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - gitops
+    - argocd
+    - helm
+    - kubernetes
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-team
