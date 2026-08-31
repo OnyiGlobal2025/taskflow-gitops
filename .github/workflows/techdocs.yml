@@ -1,0 +1,63 @@
+name: Publish TechDocs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/techdocs.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # required for OIDC federation into AWS
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  TECHDOCS_S3_BUCKET_NAME: onyiglobal-techdocs-bucket
+  # Must match the entity in catalog-info.yaml exactly:
+  # <namespace>/<kind>/<name> — lowercase, this is the S3 key prefix.
+  ENTITY_NAMESPACE: default
+  ENTITY_KIND: component
+  ENTITY_NAME: taskflow-gitops
+
+jobs:
+  publish-techdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs and TechDocs CLI
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-techdocs-core
+          npm install -g @techdocs/cli
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::713923090919:role/taskflow-github-actions-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build docs
+        run: techdocs-cli generate --no-docker --verbose
+
+      - name: Publish docs to S3
+        run: |
+          techdocs-cli publish \
+            --publisher-type awsS3 \
+            --storage-name $TECHDOCS_S3_BUCKET_NAME \
+            --entity $ENTITY_NAMESPACE/$ENTITY_KIND/$ENTITY_NAME
