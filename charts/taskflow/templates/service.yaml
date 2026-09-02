@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: taskflow-backend
   namespace: {{ .Values.namespace }}
+  labels:
+    app: taskflow-backend
+    environment: {{ .Values.environment }}
+    backstage.io/kubernetes-id: taskflow-app
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: /health
     alb.ingress.kubernetes.io/success-codes: "200"
@@ -20,6 +24,10 @@ kind: Service
 metadata:
   name: taskflow-frontend
   namespace: {{ .Values.namespace }}
+  labels:
+    app: taskflow-frontend
+    environment: {{ .Values.environment }}
+    backstage.io/kubernetes-id: taskflow-app
 spec:
   selector:
     app: taskflow-frontend

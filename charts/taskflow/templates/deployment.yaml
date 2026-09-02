@@ -6,6 +6,7 @@ metadata:
   labels:
     app: taskflow-backend
     environment: {{ .Values.environment }}
+    backstage.io/kubernetes-id: taskflow-app
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -16,6 +17,7 @@ spec:
       labels:
         app: taskflow-backend
         environment: {{ .Values.environment }}
+        backstage.io/kubernetes-id: taskflow-app
     spec:
       containers:
         - name: taskflow-backend
@@ -51,6 +53,7 @@ metadata:
   labels:
     app: taskflow-frontend
     environment: {{ .Values.environment }}
+    backstage.io/kubernetes-id: taskflow-app
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -61,6 +64,7 @@ spec:
       labels:
         app: taskflow-frontend
         environment: {{ .Values.environment }}
+        backstage.io/kubernetes-id: taskflow-app
     spec:
       containers:
         - name: taskflow-frontend
