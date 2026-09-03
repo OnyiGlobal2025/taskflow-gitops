@@ -8,7 +8,7 @@ backend:
 frontend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: frontend-latest
+    tag: "frontend-phase7"
 
 namespace: taskflow-dev
 environment: dev
