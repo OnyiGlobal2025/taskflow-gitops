@@ -3,7 +3,7 @@ replicaCount: 1
 backend:
   image:
     repository: 713923090919.dkr.ecr.us-east-1.amazonaws.com/taskflow
-    tag: "backend-afad370cb431b3ee5ff50d147ca3aa32edc809b4"
+    tag: "backend-phase7"
 
 frontend:
   image:
@@ -14,7 +14,7 @@ namespace: taskflow-dev
 environment: dev
 
 ingress:
-  enabled: true
+  enabled: false
   host: dev-taskflow.okorojeremiah.online
 
 resources:
